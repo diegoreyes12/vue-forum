@@ -1,17 +1,41 @@
 <template>
   <div>
-    <h1>Welcome to the forum</h1>
     <div
       :key="index"
+      class="col-large push-top"
       v-for="(thread, index) in threads"
     >
-      <h2>{{thread.title}}</h2>
-      <div
-        :key="index"
-        v-for="(postId, index) in thread.posts"
-      >
-        <p>{{ users[posts[postId]] }}</p>
-        <p>{{posts[postId].text}}</p>
+      <h1>{{thread.title}}</h1>
+
+      <div class="post-list">
+        <div
+          :key="index"
+          class="post"
+          v-for="(postId, index) in thread.posts"
+        >
+          <div class="user-info">
+            <a
+              class="user-name"
+              href="#"
+            >{{users[posts[postId].userId].name}}</a>
+
+            <a href="#">
+              <img
+                :src="users[posts[postId].userId].avatar"
+                alt
+                class="avatar-large"
+              />
+            </a>
+
+            <p class="desktop-only text-small">107 posts</p>
+          </div>
+
+          <div class="post-content">
+            <div>{{posts[postId].text}}</div>
+          </div>
+
+          <div class="post-date text-faded">{{posts[postId].publishedAt}}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -29,12 +53,5 @@ export default {
       users: sourceData.users,
     };
   },
-  props: {
-    msg: String,
-  },
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-</style>
