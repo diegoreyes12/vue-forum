@@ -1,16 +1,34 @@
 <template>
   <div>
     <h1>Welcome to the forum</h1>
-    <h2>{{sourceData.data.threads}}</h2>
+    <div
+      :key="index"
+      v-for="(thread, index) in threads"
+    >
+      <h2>{{thread.title}}</h2>
+      <div
+        :key="index"
+        v-for="(postId, index) in thread.posts"
+      >
+        <p>{{ users[posts[postId]] }}</p>
+        <p>{{posts[postId].text}}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import sourceData from '@/data.json';
 
-console.log(sourceData.data);
 export default {
   name: 'HelloWorld',
+  data() {
+    return {
+      threads: sourceData.threads,
+      posts: sourceData.posts,
+      users: sourceData.users,
+    };
+  },
   props: {
     msg: String,
   },
